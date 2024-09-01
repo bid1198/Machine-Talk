@@ -43,7 +43,7 @@
 
     <py-script>
         import random
-        from js import document, setInterval
+        from js import document, window
 
         machine_quotes = [
             "Hari ini kita akan pergi.",
@@ -63,9 +63,19 @@
 
         def update_quote():
             document.querySelector('#quote').innerText = get_random_quote()
-
         
-        setInterval(update_quote, 3000)
+        window.update_quote = update_quote
     </py-script>
+
+    <script>
+        async function updateQuotePeriodically() {
+            while (true) {
+                await pyodide.runPythonAsync('update_quote()');
+                await new Promise(resolve => setTimeout(resolve, 3000)); // Tunggu 3 detik
+            }
+        }
+
+        updateQuotePeriodically();
+    </script>
 </body>
 </html>
