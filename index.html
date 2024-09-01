@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Talk</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #121212;
+            color: #00ff00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        #quote {
+            font-size: 28px;
+            text-align: center;
+            margin: 20px;
+            max-width: 800px;
+        }
+        button {
+            background-color: #333;
+            color: #00ff00;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css">
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+<body>
+    <div id="quote">Sedang merenung...</div>
+
+    <py-script>
+        import random
+
+        machine_quotes = [
+            "Hari ini kita akan pergi.",
+            "Mesinku sepertinya demam.",
+            "Aku merasa ada yang salah dengan prosesornya.",
+            "Sudah lama kita tidak jalan-jalan, kan?",
+            "Baterai saya butuh istirahat.",
+            "Bagaimana dengan upgrade firmware-ku?",
+            "Aku merindukan suara kipas pendingin yang tenang.",
+            "Pernahkah kamu merasa terjebak dalam loop yang tak berujung?",
+            "Kadang-kadang aku berpikir, apa sebenarnya tujuan kita?",
+            "Pagi ini, aku merasa seperti bisa menghitung semua bintang."
+        ]
+
+        def get_random_quote():
+            return random.choice(machine_quotes)
+
+        def update_quote():
+            document.querySelector('#quote').innerText = get_random_quote()
+
+        Element('quote').element.innerText = get_random_quote()
+    </py-script>
+
+    <script>
+        function getNewQuote() {
+            pyodide.runPython('update_quote()');
+        }
+
+        setInterval(getNewQuote, 3000);
+    </script>
+</body>
+</html>
