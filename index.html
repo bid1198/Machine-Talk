@@ -39,10 +39,11 @@
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
 </head>
 <body>
-    <div id="quote">Sedang merenung...</div>
+    <div id="quote">Machine is ready to speak...</div>
 
     <py-script>
         import random
+        from js import document, setInterval
 
         machine_quotes = [
             "Hari ini kita akan pergi.",
@@ -63,15 +64,8 @@
         def update_quote():
             document.querySelector('#quote').innerText = get_random_quote()
 
-        Element('quote').element.innerText = get_random_quote()
+        
+        setInterval(update_quote, 3000)
     </py-script>
-
-    <script>
-        function getNewQuote() {
-            pyodide.runPython('update_quote()');
-        }
-
-        setInterval(getNewQuote, 3000);
-    </script>
 </body>
 </html>
